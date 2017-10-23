@@ -4,19 +4,14 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-// enemy ai
-// power ups
-// menu
-// bosses
-// player death (sort of)
-
+//jframe that holds game panel
 public class ch2 extends JFrame{
   
   private JButton button;
   cf panel = new cf();
   
   public ch2(){
-    setTitle("Ceming Huang");
+    setTitle("Platekians");
     setResizable(false);
     setSize(400,700);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -25,15 +20,6 @@ public class ch2 extends JFrame{
   }
   
   public void gui(){
-    button = new JButton("Create an enemy!");
-    
-    button.addActionListener(new ActionListener(){
-      public void actionPerformed(ActionEvent e){
-        //JOptionPane.showMessageDialog(null,"Ceming is the best");
-        panel.enemies.add(new Enemy());
-      }
-    });
-    panel.add(button);
     this.add(panel);
   }
   
@@ -44,6 +30,7 @@ public class ch2 extends JFrame{
   
 }
 
+//actual game panel
 class cf extends JPanel{
   
   Image background = new ImageIcon("background.png").getImage();
@@ -53,6 +40,11 @@ class cf extends JPanel{
   ArrayList<EnemyBullet> enemybullets = new ArrayList<EnemyBullet>();
   ArrayList<PowerUp> powerups = new ArrayList<PowerUp>();
   ArrayList<Integer> scores = new ArrayList<Integer>();
+  ArrayList<Laser> lasers = new ArrayList<Laser>();
+  ArrayList<ShoddyBullet> shoddybullets = new ArrayList<ShoddyBullet>();
+  ArrayList<Enemy2> enemies2 = new ArrayList<Enemy2>();
+  ArrayList<Boss> boss = new ArrayList<Boss>();
+  ArrayList<Java> java = new ArrayList<Java>();
   Sprite sprite = new Sprite();
   JLabel label = new JLabel("0");
   int gametime = 0;
@@ -86,6 +78,7 @@ class cf extends JPanel{
       public void mousePressed(MouseEvent evt){
         if(sprite.getPower().equals("homing"))
           homingbullets.add(new HomingBullet(locx,locy));
+        else if(sprite.getPower().equals("laser")) lasers.add(new Laser(locx,locy));
         else bullets.add(new Bullet(locx,locy));
       }
     });
@@ -93,278 +86,283 @@ class cf extends JPanel{
   }
   
   public void level1(){
-    gametime++;
+     gametime++;
     /*if(gametime == 600)
-      for(int i = -6; i < 7; i++){
-        enemies.add(new Enemy(i*30 + 188, 6* -i * i));
-        gametime = 0;
-    }*/
+     for(int i = -6; i < 7; i++){
+     enemies.add(new Enemy(i*30 + 188, 6* -i * i));
+     gametime = 0;
+     }*/
     if (gametime == 50){
-        enemies.add(new Enemy(50, 0));
-        enemies.add(new Enemy(350, 0));
-      }
-      if (gametime == 70){
-        enemies.add(new Enemy(100, 0));
-        enemies.add(new Enemy(300, 0));
-      }
-      if (gametime == 90){
-        enemies.add(new Enemy(150, 0));
-        enemies.add(new Enemy(250, 0));
-      }
-      if (gametime == 110){
-        enemies.add(new Enemy(200, 0));
-      }
-      if (gametime == 200){
-        enemies.add(new Enemy(100, 0));
-        enemies.add(new Enemy(200, 0));
-        enemies.add(new Enemy(300, 0));
-      }
-      if (gametime == 240){
-        enemies.add(new Enemy(100, 0));
-        enemies.add(new Enemy(200, 0));
-        enemies.add(new Enemy(300, 0));
-      }
-      if (gametime == 280){
-        enemies.add(new Enemy(100, 0));
-        enemies.add(new Enemy(200, 0));
-        enemies.add(new Enemy(300, 0));
-      }
-      if (gametime == 320){
-        enemies.add(new Enemy(100, 0));
-        enemies.add(new Enemy(200, 0));
-        enemies.add(new Enemy(300, 0));
-      }
-      if (gametime == 360){
-        enemies.add(new Enemy(100, 0));
-        enemies.add(new Enemy(200, 0));
-        enemies.add(new Enemy(300, 0));
-      }
-      if (gametime == 400){
-        enemies.add(new Enemy(100, 0));
-        enemies.add(new Enemy(200, 0));
-        enemies.add(new Enemy(300, 0));
-      }
-      if (gametime == 500){
-        enemies.add(new Enemy(200, 0));
-      }
-      if (gametime == 520){
-        enemies.add(new Enemy(150, 0));
-        enemies.add(new Enemy(250, 0));
-      }
-      if (gametime == 540){
-        enemies.add(new Enemy(100, 0));
-        enemies.add(new Enemy(300, 0));
-      }
-      if (gametime == 560){
-        enemies.add(new Enemy(50, 0));
-        enemies.add(new Enemy(350, 0));
-      }
-      if (gametime == 660){
-        enemies.add(new Enemy(200, 0));
-      }
-      if (gametime == 700){
-        enemies.add(new Enemy(150, 0));
-        enemies.add(new Enemy(200, 0));
-        enemies.add(new Enemy(250, 0));
-      }
-      if (gametime == 740){
-        enemies.add(new Enemy(100, 0));
-        enemies.add(new Enemy(150, 0));
-        enemies.add(new Enemy(200, 0));
-        enemies.add(new Enemy(250, 0));
-        enemies.add(new Enemy(300, 0));
-      }
-      if (gametime == 780){
-        enemies.add(new Enemy(50, 0));
-        enemies.add(new Enemy(100, 0));
-        enemies.add(new Enemy(150, 0));
-        enemies.add(new Enemy(200, 0));
-        enemies.add(new Enemy(250, 0));
-        enemies.add(new Enemy(300, 0)); 
-        enemies.add(new Enemy(350, 0));
-      }
-      if (gametime == 940){
-        enemies.add(new Enemy(25, 0));
-        enemies.add(new Enemy(375, 0));
-      }
-      if (gametime == 980){
-        enemies.add(new Enemy(50, 0));
-        enemies.add(new Enemy(350, 0));
-      }
-      if (gametime == 1020){
-        enemies.add(new Enemy(75, 0));
+      enemies.add(new Enemy(50, 0));
+      enemies.add(new Enemy(350, 0));
+      enemies2.add(new Enemy2(200, 0));
+    }
+    if (gametime == 70){
+      enemies.add(new Enemy(100, 0));
+      enemies.add(new Enemy(300, 0));
+    }
+    if (gametime == 90){
+      enemies.add(new Enemy(150, 0));
+      enemies.add(new Enemy(250, 0));
+    }
+    if (gametime == 110){
+      enemies.add(new Enemy(200, 0));
+    }
+    if (gametime == 310){
+      enemies.add(new Enemy(100, 0));
+      enemies.add(new Enemy(200, 0));
+      enemies.add(new Enemy(300, 0));
+      enemies2.add(new Enemy2(150, 0));
+      enemies2.add(new Enemy2(250, 0));
+    }
+    if (gametime == 350){
+      enemies.add(new Enemy(100, 0));
+      enemies.add(new Enemy(200, 0));
+      enemies.add(new Enemy(300, 0));
+    }
+    if (gametime == 390){
+      enemies.add(new Enemy(100, 0));
+      enemies.add(new Enemy(200, 0));
+      enemies.add(new Enemy(300, 0));
+    }
+    if (gametime == 430){
+      enemies.add(new Enemy(100, 0));
+      enemies.add(new Enemy(200, 0));
+      enemies.add(new Enemy(300, 0));
+    }
+    if (gametime == 470){
+      enemies.add(new Enemy(100, 0));
+      enemies.add(new Enemy(200, 0));
+      enemies.add(new Enemy(300, 0));
+    }
+    if (gametime == 510){
+      enemies.add(new Enemy(100, 0));
+      enemies.add(new Enemy(200, 0));
+      enemies.add(new Enemy(300, 0));
+    }
+    if (gametime == 710){
+      enemies.add(new Enemy(200, 0));
+    }
+    if (gametime == 730){
+      enemies.add(new Enemy(150, 0));
+      enemies.add(new Enemy(250, 0));
+    }
+    if (gametime == 750){
+      enemies.add(new Enemy(100, 0));
+      enemies.add(new Enemy(300, 0));
+    }
+    if (gametime == 770){
+      enemies.add(new Enemy(50, 0));
+      enemies.add(new Enemy(350, 0));
+    }
+    if (gametime == 970){
+      enemies.add(new Enemy(200, 0));
+    }
+    if (gametime == 1010){
+      enemies.add(new Enemy(150, 0));
+      enemies.add(new Enemy(200, 0));
+      enemies.add(new Enemy(250, 0));
+    }
+    if (gametime == 1050){
+      enemies.add(new Enemy(100, 0));
+      enemies.add(new Enemy(150, 0));
+      enemies.add(new Enemy(200, 0));
+      enemies.add(new Enemy(250, 0));
+      enemies.add(new Enemy(300, 0));
+    }
+    if (gametime == 1090){
+      enemies.add(new Enemy(50, 0));
+      enemies.add(new Enemy(100, 0));
+      enemies.add(new Enemy(150, 0));
+      enemies.add(new Enemy(200, 0));
+      enemies.add(new Enemy(250, 0));
+      enemies.add(new Enemy(300, 0)); 
+      enemies.add(new Enemy(350, 0));
+    }
+    if (gametime == 1390){
+      enemies.add(new Enemy(25, 0));
+      enemies.add(new Enemy(375, 0));
+    }
+    if (gametime == 1430){
+      enemies.add(new Enemy(50, 0));
+      enemies.add(new Enemy(350, 0));
+    }
+    if (gametime == 1470){
+      enemies.add(new Enemy(75, 0));
+      enemies.add(new Enemy(325, 0));
+    }
+    if (gametime == 1510){
+      enemies.add(new Enemy(100, 0));
+      enemies.add(new Enemy(300, 0));
+    }
+    if (gametime == 1550){
+      enemies.add(new Enemy(125, 0));
+      enemies.add(new Enemy(275, 0));
+    }
+    if (gametime == 1590){
+      enemies.add(new Enemy(150, 0));
+      enemies.add(new Enemy(250, 0));
+    }
+    if (gametime == 1630){
+      enemies.add(new Enemy(175, 0));
+      enemies.add(new Enemy(225, 0));
+    }
+    if (gametime == 1670){
+      enemies.add(new Enemy(200, 0));
+    }
+    if (gametime == 1710){
+      enemies.add(new Enemy(175, 0));
+      enemies.add(new Enemy(225, 0));
+    }
+    if (gametime == 1750){
+      enemies.add(new Enemy(150, 0));
+      enemies.add(new Enemy(250, 0));
+    }
+    if (gametime == 1790){
+      enemies.add(new Enemy(125, 0));
+      enemies.add(new Enemy(275, 0));
+    }
+    if (gametime == 1830){
+      enemies.add(new Enemy(100, 0));
+      enemies.add(new Enemy(300, 0));
+    }
+    if (gametime == 1870){
+      enemies.add(new Enemy(75, 0));
+      enemies.add(new Enemy(325, 0));
+    }
+    if (gametime == 1910){
+      enemies.add(new Enemy(50, 0));
+      enemies.add(new Enemy(350, 0));
+    }
+    if (gametime == 1950){
+      enemies.add(new Enemy(25, 0));
+      enemies.add(new Enemy(375, 0));
+    }
+    if (gametime == 1990){
+      enemies.add(new Enemy(25, 0));
+      enemies.add(new Enemy(375, 0));
+    }
+    if (gametime == 2030){
+      enemies.add(new Enemy(50, 0));
+      enemies.add(new Enemy(350, 0));
+    }
+    if (gametime == 2070){
+      enemies.add(new Enemy(75, 0));
         enemies.add(new Enemy(325, 0));
       }
-      if (gametime == 1060){
+      if (gametime == 2110){
         enemies.add(new Enemy(100, 0));
         enemies.add(new Enemy(300, 0));
       }
-      if (gametime == 1100){
+      if (gametime == 2150){
         enemies.add(new Enemy(125, 0));
         enemies.add(new Enemy(275, 0));
       }
-      if (gametime == 1140){
+      if (gametime == 2190){
         enemies.add(new Enemy(150, 0));
         enemies.add(new Enemy(250, 0));
       }
-      if (gametime == 1180){
+      if (gametime == 2230){
         enemies.add(new Enemy(175, 0));
         enemies.add(new Enemy(225, 0));
       }
-      if (gametime == 1220){
+      if (gametime == 2270){
         enemies.add(new Enemy(200, 0));
       }
-      if (gametime == 1260){
+      if (gametime == 2310){
         enemies.add(new Enemy(175, 0));
         enemies.add(new Enemy(225, 0));
       }
-      if (gametime == 1300){
+      if (gametime == 2350){
         enemies.add(new Enemy(150, 0));
         enemies.add(new Enemy(250, 0));
       }
-      if (gametime == 1340){
+      if (gametime == 2390){
         enemies.add(new Enemy(125, 0));
         enemies.add(new Enemy(275, 0));
       }
-      if (gametime == 1380){
+      if (gametime == 2430){
         enemies.add(new Enemy(100, 0));
         enemies.add(new Enemy(300, 0));
       }
-      if (gametime == 1420){
+      if (gametime == 2470){
         enemies.add(new Enemy(75, 0));
         enemies.add(new Enemy(325, 0));
       }
-      if (gametime == 1460){
+      if (gametime == 2510){
         enemies.add(new Enemy(50, 0));
         enemies.add(new Enemy(350, 0));
       }
-      if (gametime == 1500){
+      if (gametime == 2550){
         enemies.add(new Enemy(25, 0));
         enemies.add(new Enemy(375, 0));
       }
-            if (gametime == 940){
+      if (gametime == 2590){
         enemies.add(new Enemy(25, 0));
         enemies.add(new Enemy(375, 0));
       }
-      if (gametime == 1540){
+      if (gametime == 2630){
         enemies.add(new Enemy(50, 0));
         enemies.add(new Enemy(350, 0));
       }
-      if (gametime == 1580){
+      if (gametime == 2670){
         enemies.add(new Enemy(75, 0));
         enemies.add(new Enemy(325, 0));
       }
-      if (gametime == 1620){
+      if (gametime == 2710){
         enemies.add(new Enemy(100, 0));
         enemies.add(new Enemy(300, 0));
       }
-      if (gametime == 1660){
+      if (gametime == 2750){
         enemies.add(new Enemy(125, 0));
         enemies.add(new Enemy(275, 0));
       }
-      if (gametime == 1700){
+      if (gametime == 2790){
         enemies.add(new Enemy(150, 0));
         enemies.add(new Enemy(250, 0));
       }
-      if (gametime == 1740){
+      if (gametime == 2830){
         enemies.add(new Enemy(175, 0));
         enemies.add(new Enemy(225, 0));
       }
-      if (gametime == 1780){
+      if (gametime == 2870){
         enemies.add(new Enemy(200, 0));
       }
-      if (gametime == 1820){
+      if (gametime == 2910){
         enemies.add(new Enemy(175, 0));
         enemies.add(new Enemy(225, 0));
       }
-      if (gametime == 1860){
+      if (gametime == 2950){
         enemies.add(new Enemy(150, 0));
         enemies.add(new Enemy(250, 0));
       }
-      if (gametime == 1900){
+      if (gametime == 2990){
         enemies.add(new Enemy(125, 0));
         enemies.add(new Enemy(275, 0));
       }
-      if (gametime == 1940){
+      if (gametime == 3030){
         enemies.add(new Enemy(100, 0));
         enemies.add(new Enemy(300, 0));
       }
-      if (gametime == 1980){
+      if (gametime == 3070){
         enemies.add(new Enemy(75, 0));
         enemies.add(new Enemy(325, 0));
       }
-      if (gametime == 2020){
+      if (gametime == 3110){
         enemies.add(new Enemy(50, 0));
         enemies.add(new Enemy(350, 0));
       }
-      if (gametime == 2060){
+      if (gametime == 3150){
         enemies.add(new Enemy(25, 0));
         enemies.add(new Enemy(375, 0));
       }
-      if (gametime == 2100){
-        enemies.add(new Enemy(25, 0));
-        enemies.add(new Enemy(375, 0));
-      }
-      if (gametime == 2140){
-        enemies.add(new Enemy(50, 0));
-        enemies.add(new Enemy(350, 0));
-      }
-      if (gametime == 2180){
-        enemies.add(new Enemy(75, 0));
-        enemies.add(new Enemy(325, 0));
-      }
-      if (gametime == 2220){
-        enemies.add(new Enemy(100, 0));
-        enemies.add(new Enemy(300, 0));
-      }
-      if (gametime == 2260){
-        enemies.add(new Enemy(125, 0));
-        enemies.add(new Enemy(275, 0));
-      }
-      if (gametime == 2300){
-        enemies.add(new Enemy(150, 0));
-        enemies.add(new Enemy(250, 0));
-      }
-      if (gametime == 2340){
-        enemies.add(new Enemy(175, 0));
-        enemies.add(new Enemy(225, 0));
-      }
-      if (gametime == 2380){
-        enemies.add(new Enemy(200, 0));
-      }
-      if (gametime == 2420){
-        enemies.add(new Enemy(175, 0));
-        enemies.add(new Enemy(225, 0));
-      }
-      if (gametime == 2460){
-        enemies.add(new Enemy(150, 0));
-        enemies.add(new Enemy(250, 0));
-      }
-      if (gametime == 2500){
-        enemies.add(new Enemy(125, 0));
-        enemies.add(new Enemy(275, 0));
-      }
-      if (gametime == 2540){
-        enemies.add(new Enemy(100, 0));
-        enemies.add(new Enemy(300, 0));
-      }
-      if (gametime == 2580){
-        enemies.add(new Enemy(75, 0));
-        enemies.add(new Enemy(325, 0));
-      }
-      if (gametime == 2620){
-        enemies.add(new Enemy(50, 0));
-        enemies.add(new Enemy(350, 0));
-      }
-      if (gametime == 2660){
-        enemies.add(new Enemy(25, 0));
-        enemies.add(new Enemy(375, 0));
-      }
-      
+      if (gametime > 3150 && enemies.size() == 0 && enemies2.size() == 0 && boss.size() == 0)
+        boss.add(new Boss());
   }
   
+  //rendition of a game loop using swing timer
   public void gameLoop(){
-    Timer j = new Timer(1000/60, new ActionListener(){
+    Timer j = new Timer(1000/60, new ActionListener(){ // bottom number represents fps
       public void actionPerformed(ActionEvent e){
         update();
 
@@ -373,6 +371,7 @@ class cf extends JPanel{
     j.start();
   }
   
+  //checks everything at every tick.
   public void update(){
     level1();
     label.setText("SCORE:" + score);
@@ -392,12 +391,26 @@ class cf extends JPanel{
      // }
   //  }
     //Power collision with player
+    for(Boss x : boss){
+      x.move();
+      x.updateHitbox();
+      if(x.interval() % 25 == 0){
+        java.add(new Java(x.getX(),x.getY() + x.image().getHeight(null)/ 2, sprite));
+        java.add(new Java(x.getX(),x.getY() - x.image().getHeight(null)/ 2, sprite));
+        java.add(new Java(x.getX() + x.image().getWidth(null)/2, x.getY(), sprite));
+        java.add(new Java(x.getX() - x.image().getWidth(null)/2, x.getY(), sprite));
+        java.add(new Java(x.getX() - x.image().getWidth(null)/2, x.getY() - x.image().getHeight(null) / 4, sprite));
+        java.add(new Java(x.getX() - x.image().getWidth(null)/2, x.getY() + x.image().getHeight(null) / 4, sprite));
+        java.add(new Java(x.getX() + x.image().getWidth(null)/2, x.getY() - x.image().getHeight(null) / 4, sprite));
+        java.add(new Java(x.getX() + x.image().getWidth(null)/2, x.getY() + x.image().getHeight(null) / 4, sprite));
+      }
+    }
     for(int i = 0 ; i < powerups.size(); i++){
       PowerUp x = powerups.get(i);
       x.updateHitbox();
       x.setY(x.getY() + 2);
       if(x.isCollision(sprite)){
-          sprite.setPower("homing");
+          x.effect(sprite);
           sprite.setTime(600);
           powerups.remove(x);
       }
@@ -417,6 +430,20 @@ class cf extends JPanel{
         o.addInterval(1);
       }
     }
+    //java projectiles
+    for (int y = 0; y < java.size(); y++){
+      Java bo = java.get(y);
+      bo.setX(bo.getX() + bo.getXSpeed());
+      bo.setY(bo.getY() + bo.getYSpeed());
+      bo.updateHitbox();
+      if (bo.out())
+        java.remove(y);
+      if (bo.isCollision(sprite)){
+        JOptionPane.showMessageDialog(null,"You were this close to slaying the mythical beast!");
+        System.exit(0);
+      }
+    }
+    //For regular enemy bullets
     for(int f = 0; f < enemybullets.size(); f++){
       EnemyBullet bo = enemybullets.get(f);
       bo.setY(bo.getY() + 2);
@@ -428,10 +455,67 @@ class cf extends JPanel{
         System.exit(0);
       }
     }
-    //For homing bullets
+    //enemy2 check
+    for (int z = 0; z < enemies2.size(); z++){
+      Enemy2 o = enemies2.get(z);
+      if ((o.interval() % 10 == 0) && (o.interval() < 50)){
+        shoddybullets.add(new ShoddyBullet(o.getX(),o.getY(),sprite));
+      }
+      if (o.interval() == 150)
+        o.addInterval(-150);
+      if (o.getY() < 300)
+        o.setY(o.getY() + 1);
+      o.updateHitbox();
+      o.addInterval(1);
+      
+    }
+    // For enemy targeting bullets
+    for (int y = 0; y < shoddybullets.size(); y++){
+      ShoddyBullet bo = shoddybullets.get(y);
+      bo.setX(bo.getX() + bo.getXSpeed());
+      bo.setY(bo.getY() + bo.getYSpeed());
+      bo.updateHitbox();
+      if (bo.out())
+        shoddybullets.remove(y);
+      if (bo.isCollision(sprite)){
+        JOptionPane.showMessageDialog(null,"You have died");
+        System.exit(0);
+      }
+    }
+    //For lasers
+    for(int i = 0; i < lasers.size(); i++){
+      Laser curr = lasers.get(i);
+      curr.setY(curr.getY() - 8);
+      curr.updateHitbox();
+      if(curr.out()){
+        lasers.remove(i);
+        //i--;
+      }
+      for(int j = 0; j < enemies.size(); j++){
+        Enemy c = enemies.get(j);
+        if(curr.isCollision(c)){
+          enemies.remove(j);
+          score++;
+          break;
+        }
+      }
+      for (int a = 0; a < enemies2.size(); a++){
+        Enemy2 b = enemies2.get(a);
+        if (curr.isCollision(b)){
+          lasers.remove(i);
+          if (b.getHealth() > 0)
+            b.removeHealth();
+          else{
+            enemies2.remove(a);
+            score++;
+            break;
+          }
+        }
+      }
+    }
+    //Homing Check
     for(int i = 0; i < homingbullets.size(); i++){
       HomingBullet curr = homingbullets.get(i);
-      // this stupid
       if(enemies.size() > 0 && curr.getTarget() == null) curr.refresh(enemies.get((int)(Math.random() * enemies.size())));
       else if(enemies.size() > 0 && curr.getTarget() != null && enemies.indexOf(curr.getTarget()) != -1) curr.refresh(curr.getTarget());
       curr.setY(curr.getY() - (int)(8 * Math.sin(curr.getAngle())));
@@ -450,6 +534,21 @@ class cf extends JPanel{
           break;
         }
       }
+      for (int a = 0; a < enemies2.size(); a++){
+        Enemy2 b = enemies2.get(a);
+        if (curr.isCollision(b)){
+          homingbullets.remove(i);
+          if (b.getHealth() > 0){
+            b.removeHealth();
+            break;
+          }
+          else{
+            enemies2.remove(a);
+            score++;
+            break;
+          }
+        }
+      }
     }
     //For regular bullets
     for(int i = 0; i < bullets.size(); i++){
@@ -464,18 +563,45 @@ class cf extends JPanel{
         Enemy c = enemies.get(j);
         if(curr.isCollision(c)){
           int powchance = (int)(Math.random() * 10000);
-          if(powchance < 200)
-            powerups.add(new PowerUp(c.getX(),c.getY(),"homing.png"));
+          if(powchance < 1012)
+            powerups.add(new PowerUp(c.getX(),c.getY()));
           bullets.remove(i);
           enemies.remove(j);
           score++;
           break;
         }
       }
+      for(int a = 0; a < enemies2.size(); a++){
+        Enemy2 b = enemies2.get(a);
+        if (curr.isCollision(b)){
+          bullets.remove(i);
+          if (b.getHealth() > 0){
+            b.removeHealth();
+            break;
+          }
+          else{
+            enemies2.remove(a);
+            score++;
+            break;
+          }
+        }
+      }
+      for(int d = 0 ; d < boss.size(); d++){
+        Boss x = boss.get(d);
+        if(curr.isCollision(x)){
+          x.removeHealth();
+          bullets.remove(curr);
+          if(x.getHealth() == 0){
+            boss.remove(x);
+            JOptionPane.showMessageDialog(null,"Good job. Thanks for playing.");
+          }
+        }
+      }
     }
     repaint();
   }
   
+  //inherent jpanel drawing function (draws everything!)
   public void paintComponent(Graphics g){
     super.paintComponent(g);
     g.drawImage(background,-200,-50,null);
@@ -485,7 +611,8 @@ class cf extends JPanel{
       i.rotateImage();
       g.drawImage(i.image(),i.getX()-3,i.getY()-8,null);
     }
-    if(bullets.size() > 0)
+    for(Laser i : lasers)
+      g.drawImage(i.image(),i.getX()-3,i.getY()-8,null);
     for(Bullet i : bullets)
       g.drawImage(i.image(),i.getX()-3,i.getY()-8,null);
     if(enemybullets.size() > 0)
@@ -495,25 +622,38 @@ class cf extends JPanel{
       g.drawImage(x.image(),x.getX(),x.getY(),null);
     for(PowerUp x : powerups)
       g.drawImage(x.image(),x.getX(),x.getY(),null);
+     for(Enemy2 x: enemies2)
+      g.drawImage(x.image(),x.getX(),x.getY(),null);
+    for(ShoddyBullet x: shoddybullets)
+      g.drawImage(x.image(),x.getX()+6,x.getY() + 5,null);
+    for(Boss x : boss)
+      g.drawImage(x.image(),x.getX(),x.getY(), null);
+    for(Java x : java)
+      g.drawImage(x.image(),x.getX(),x.getY(),null);
   }
 }
 
 class PowerUp extends GameEntity{
   
   private String _identifier;
-  String [] powers = {"homing.png","laser.png"};
+  String [] powers = {"homing.png","laserpow.png"};
   
-  PowerUp(int x, int y, String image){
-    super(x,y,image);
-    String _identifier = image;
+  PowerUp(int x, int y){
+    super(x,y,"");
+    _identifier = powers[(int)(Math.random() * 2)];
+    setImage(new ImageIcon(_identifier).getImage());
+    setHitbox(new Rectangle(x,y,image().getWidth(null),image().getHeight(null)));
   }
   
   public void effect(Sprite x){
     if(_identifier.equals("homing.png"))
       x.setPower("homing");
+    else if(_identifier.equals("laserpow.png"))
+      x.setPower("laser");
   }
 }
 
+//inherited by every game object
 abstract class GameEntity{
   
   private int _x, _y;
@@ -577,10 +717,11 @@ class Sprite extends GameEntity{
     super(400,700,"sprite.png");
     _power = "";
     _ptime = 0;
+    setHitbox(new Rectangle(getX(),getY(),image().getWidth(null)/3,image().getHeight(null) - 3));
   }
   
   public void updateHitbox(){
-    getHitbox().setLocation(getX() - 6, getY());
+    getHitbox().setLocation(getX() + 3, getY());
   }
       
   public String getPower(){
@@ -624,6 +765,15 @@ class Bullet extends GameEntity{
   
 }
 
+class Laser extends Bullet{
+
+    public Laser(int x, int y){
+      super(x,y);
+      setImage(new ImageIcon("laser.png").getImage());
+    }
+    
+}
+
 class HomingBullet extends Bullet{
   
   private Enemy _target;
@@ -663,6 +813,32 @@ class HomingBullet extends Bullet{
   
 }
 
+class ShoddyBullet extends EnemyBullet{
+
+  private int _xspeed, _yspeed;
+
+    public ShoddyBullet(int x, int y, Sprite target){
+      super(x,y);
+      setImage(new ImageIcon("shoddybullet.png").getImage());
+      setHitbox(new Rectangle(getX(),getY(),image().getWidth(null),image().getHeight(null)));
+      _xspeed = (target.getX() - x) / 50;
+      _yspeed = (target.getY() - y) / 50;
+    }
+
+    public boolean out(){
+      return (getX() < 0 || getX() > 400 || getY() > 700);
+    }
+    
+    public int getXSpeed(){
+      return _xspeed;
+    }
+    
+    public int getYSpeed(){
+      return _yspeed;
+    }
+    
+}
+
 class Enemy extends GameEntity{
   
   private int _intervalfire;
@@ -687,6 +863,87 @@ class Enemy extends GameEntity{
   
   public boolean out(){
     return getY() > 700;
+  }
+  
+}
+
+class Enemy2 extends GameEntity{
+  
+  private int _intervalfire, _health;
+  
+  public Enemy2(int x, int y){
+    super(x, y, "enemy2.png" );
+    _health = 3;
+    _intervalfire = 0;
+  }
+  
+  public int getHealth(){
+    return _health;
+  }
+  
+  public void removeHealth(){
+    _health--;
+  }
+  
+  public void setHealth(int health){
+    _health = health;
+  }
+  
+  public int interval(){
+    return _intervalfire;
+  }
+  
+  public void setInterval(int interval){
+    _intervalfire = interval;
+  }
+  
+  public void addInterval(int x){
+    _intervalfire += x;
+  }
+  
+}
+
+class Boss extends Enemy2{
+  
+  public int _moveinterval;
+  
+  public Boss(){
+   super(150,150);
+   setImage(new ImageIcon("boss.png").getImage());
+   setHitbox(new Rectangle(getX(),getY(),image().getWidth(null),image().getHeight(null)));
+   _moveinterval = 0;
+   setHealth(100);
+  }  
+  
+  public void move(){
+    if(_moveinterval < 120){
+      setX(getX() - 1);
+      setY(getY() + 1);
+    }
+    else if(_moveinterval < 360)
+      setX(getX() + 1);
+    else if(_moveinterval < 480){
+      setY(getY() - 1);
+      setX(getX() - 1);
+    }
+    if(_moveinterval == 480) _moveinterval = -1;
+    if(interval() == 25) setInterval(0);
+    _moveinterval++;
+    addInterval(1);
+  }
+  
+}
+
+class Java extends ShoddyBullet{
+  
+  public Java(int x, int y, Sprite target){
+    super(x,y,target);
+    setImage(new ImageIcon("java.png").getImage());
+    setHitbox(new Rectangle(getX(),getY(),image().getWidth(null),image().getHeight(null) - 3));
+  }
+  
+  public boolean out(){
+    return (getX() < -100 || getY() > 800);
   }
   
 }
